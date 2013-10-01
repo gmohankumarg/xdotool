@@ -28,7 +28,8 @@ CFLAGS?=-pipe -O2 $(WARNFLAGS)
 CFLAGS+=-g # TODO(sissel): Comment before release
 CFLAGS+=$(CPPFLAGS)
 
-DEFAULT_LIBS=-L/usr/X11R6/lib -L/usr/local/lib -lX11 -lXtst -lXinerama
+#DEFAULT_LIBS=-L/usr/X11R6/lib -L/usr/local/lib -lX11 -lXtst -lXinerama
+DEFAULT_LIBS=-L/usr/X11R6/lib -L/usr/local/lib -lX11 -lXtst
 DEFAULT_INC=-I/usr/X11R6/include -I/usr/local/include
 
 XDOTOOL_LIBS=$(shell pkg-config --libs x11 2> /dev/null || echo "$(DEFAULT_LIBS)")  $(shell sh platform.sh extralibs)
@@ -52,7 +53,7 @@ CMDOBJS= cmd_click.o cmd_mousemove.o cmd_mousemove_relative.o cmd_mousedown.o \
          cmd_sleep.o cmd_get_display_geometry.o
 
 .PHONY: all
-all: xdotool.1 libxdo.$(LIBSUFFIX) libxdo.$(VERLIBSUFFIX) xdotool
+all: libxdo.$(LIBSUFFIX) libxdo.$(VERLIBSUFFIX) xdotool
 
 .PHONY: static
 static: xdotool.static
@@ -74,7 +75,7 @@ pre-install:
 
 .PHONY: post-install
 post-install:
-	@if [ "$$(uname)" = "Linux" ] ; then \
+	@if [ "$$(uname)" = "Linux1" ] ; then \
 		echo "Running ldconfig to update library cache"; \
 		ldconfig \
 		  || echo "Failed running 'ldconfig'. Maybe you need to be root?"; \
