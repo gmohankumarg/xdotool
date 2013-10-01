@@ -27,7 +27,9 @@
 #include <X11/Xresource.h>
 #include <X11/Xutil.h>
 #include <X11/extensions/XTest.h>
+#if 0
 #include <X11/extensions/Xinerama.h>
+#endif
 #include <X11/keysym.h>
 #include <X11/cursorfont.h>
 
@@ -2081,6 +2083,7 @@ int xdo_has_feature(xdo_t *xdo, int feature) {
 
 int xdo_get_viewport_dimensions(xdo_t *xdo, unsigned int *width,
                                 unsigned int *height, int screen) {
+#if 0                                                                            
   int dummy;
 
   if (XineramaQueryExtension(xdo->xdpy, &dummy, &dummy) \
@@ -2099,8 +2102,11 @@ int xdo_get_viewport_dimensions(xdo_t *xdo, unsigned int *width,
     XFree(info);
     return XDO_SUCCESS;
   } else {
+#endif                                            
     /* Use the root window size if no zinerama */
     Window root = RootWindow(xdo->xdpy, screen);
     return xdo_get_window_size(xdo, root, width, height);
+#if 0
   }
+#endif
 }
